@@ -1,0 +1,36 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ],
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://mediswift-backend.vercel.app/api",
+      "VITE_WS_BASE_URL": "wss://mediswift-backend.vercel.app",
+      "VITE_APP_URL": "https://mediswift-io.vercel.app",
+      "VITE_APP_ENV": "production",
+      "VITE_APP_NAME": "MediSwift",
+      "VITE_ENABLE_ANALYTICS": "false",
+      "VITE_ENABLE_ERROR_TRACKING": "false"
+    }
+  },
+  "functions": {
+    "app/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+} 
